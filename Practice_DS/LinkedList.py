@@ -17,7 +17,7 @@ class LinkedList:
             print(tmp.data)
             tmp = tmp.next
 
-    def delete(self,key=None):
+    def delete(self, key=None):
         if (key==None):
             if (self.head):
                 self.head = self.head.next
@@ -38,16 +38,34 @@ class LinkedList:
                         return
                     prev = tmp
                     tmp = tmp.next
+    
+    def delete_pos(self, pos):
+        tmp = self.head
+        if (tmp):
+            count = 0
+            if pos == 0:
+                self.head = self.head.next
+                print("Deleted")
+                return
+            prev = tmp
+        
+            while (count != pos):
+                prev = tmp
+                if (tmp.next == None):
+                    return
+                tmp = tmp.next
+                count = count+1
+            prev.next = tmp.next
+            print("deleted now")
 
 if __name__ == "__main__":
     llist = LinkedList()
-    
-    
+    llist.insert(1)
+    llist.insert(2)
+    llist.insert(3)
     llist.traverse()
     
     
-    llist.delete(2)
-    llist.delete(3)
-    llist.delete(0)
-    llist.delete()
+    llist.delete_pos(0)
+
     llist.traverse()
