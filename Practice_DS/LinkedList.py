@@ -25,29 +25,29 @@ class LinkedList:
         else:
             tmp = self.head
             if (tmp):
-                if tmp.data == key:
-                    print("foundi")
-                    self.head = None
+                if (tmp.data == key):
+                    self.head = self.head.next
+                    print("found")
                     return
-                else:
+                prev = tmp
+                tmp = tmp.next
+                while (tmp):
+                    if (tmp.data == key):
+                        prev.next = tmp.next
+                        print("found the key")
+                        return
                     prev = tmp
-                    current = tmp.next
-                    while(current):
-                        if current.data == key:
-                            print("found")
-                            prev.next = current.next
-                            return
-                        prev = prev.next
-                        current = current.next
+                    tmp = tmp.next
 
 if __name__ == "__main__":
     llist = LinkedList()
     
-    llist.insert(2)
-    llist.insert(3)
+    
     llist.traverse()
-    llist.delete()
+    
+    
     llist.delete(2)
     llist.delete(3)
     llist.delete(0)
+    llist.delete()
     llist.traverse()
