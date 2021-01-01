@@ -70,13 +70,28 @@ class LinkedList:
                 return 1
             else:
                 return (1+self.findlengthrec(current.next))
+    
+    def findkeyrec(self,cur,key):
+        if cur.data == key:
+            return True
+        if cur.next == None:
+            return False
+        else:
+            return self.findkeyrec(cur.next,key)
+
+    def findkey(self,key):
+        tmp = self.head
+        return self.findkeyrec(tmp,key)
 if __name__ == "__main__":
     llist = LinkedList()
     llist.insert(1)
     
+    
     llist.traverse()
     lenth = llist.findlengthrec()
     print(lenth)
+    print(llist.findkey(2))
+    
     
     
     
