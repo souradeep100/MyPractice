@@ -124,6 +124,19 @@ class LinkedList:
 		temp = currX.next
 		currX.next = currY.next
 		currY.next = temp
+	def reverse(self):
+		
+		if (self.head):
+			prev = None
+			current = self.head
+			while (current):
+				next = current.next
+				current.next = prev
+				prev = current
+				current = next
+			
+			self.head = prev
+
 
 
 if __name__ == "__main__":
@@ -133,5 +146,6 @@ if __name__ == "__main__":
 	llist.insert(4)
 	llist.insert(5)
 	llist.traverse()
-	llist.swapnodes(5, 1)
+	
+	llist.reverse()
 	llist.traverse()
