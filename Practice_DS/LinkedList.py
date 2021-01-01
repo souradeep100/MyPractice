@@ -58,14 +58,27 @@ class LinkedList:
             prev.next = tmp.next
             print("deleted now")
 
+    def  findlengthrec(self, current=None):
+        if (current == None):
+            if (self.head):
+                tmp = self.head
+                return (self.findlengthrec(tmp))
+            else:
+                return 0
+        else:
+            if (current.next == None):
+                return 1
+            else:
+                return (1+self.findlengthrec(current.next))
 if __name__ == "__main__":
     llist = LinkedList()
     llist.insert(1)
-    llist.insert(2)
-    llist.insert(3)
+    
     llist.traverse()
+    lenth = llist.findlengthrec()
+    print(lenth)
     
     
-    llist.delete_pos(0)
+    
 
-    llist.traverse()
+    
