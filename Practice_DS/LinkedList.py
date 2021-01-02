@@ -20,7 +20,7 @@ class LinkedList:
 	def traverse(self):
 		tmp = self.head
 		while(tmp):
-			print(f">{tmp.data}")
+			print(f"{tmp.data}", end="->")
 			tmp = tmp.next
 		
 	def delete(self, key=None):
@@ -136,16 +136,54 @@ class LinkedList:
 				current = next
 			
 			self.head = prev
+	def getMerge (self, left, right): # 5 and 4
+		result = None
+		if (left == None):
+			return right
+		if (right == None):
+			return left
+		if left.data <= right.data:
+			result = left
+			print (f"result left is {result.data}")
+			result.next = self.getMerge(left.next, right)
+		else:
+			result = right #4
+			print (f"result right is {result.data}")
+			result.next = self.getMerge(left, right.next) #5,none
+		return result #4->5
+	def mergeSort (self,h):
+		tmp = h
+		slow = h
+		first = h
+		if (tmp == None or tmp.next == None):
+			return h
+		while (first.next != None and first.next.next != None):
+			slow = slow.next
+			first = first.next.next
+		#5->4->2->1
+		#5->4
+		middle = slow #4 #5
+		nextmiddle = slow.next #2 #4
+		middle.next = None
+		print (f"soura{middle.data}")
+		
+		#now recursion
+		left = self.mergeSort(h) #5->4-/ #5-/
+		right = self.mergeSort(nextmiddle) #2->1-/ #4-/
+		
+		sortedlist = self.getMerge(left, right)
+		return sortedlist
+
 
 
 
 if __name__ == "__main__":
 	llist = LinkedList()
-	llist.insert(1)
 	llist.insert(2)
+	llist.insert(1)
 	llist.insert(4)
 	llist.insert(5)
 	llist.traverse()
-	
-	llist.reverse()
-	llist.traverse()
+	newlist = LinkedList()
+	newlist.head = llist.mergeSort(llist.head)
+	newlist.traverse()
