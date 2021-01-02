@@ -22,7 +22,7 @@ class LinkedList:
 		while(tmp):
 			print(f"{tmp.data}", end="->")
 			tmp = tmp.next
-		
+		print("//",end="")
 	def delete(self, key=None):
 		if (key==None):
 			if (self.head):
@@ -124,18 +124,22 @@ class LinkedList:
 		temp = currX.next
 		currX.next = currY.next
 		currY.next = temp
-	def reverse(self):
-		
-		if (self.head):
+	def reverse(self, h=None):
+		if (h):
+			tmp = h
+		else:
+			tmp = self.head
+		if (tmp):
 			prev = None
-			current = self.head
+			current = tmp
 			while (current):
 				next = current.next
 				current.next = prev
 				prev = current
 				current = next
 			
-			self.head = prev
+			tmp = prev
+			return tmp
 	def getMerge (self, left, right): # 5 and 4
 		result = None
 		if (left == None):
@@ -174,8 +178,38 @@ class LinkedList:
 		sortedlist = self.getMerge(left, right)
 		return sortedlist
 
+	def append(self, lst):
+		if (self.head == None):
+				self.head = lst
+				
+		else:
+			tmp = self.head
+			while (tmp.next):
+				tmp = tmp.next
+			tmp.next = lst
 
-
+	def blockReverse(self, k):
+		if (self.head == None):
+			return
+		else:
+			tmphead = self.head
+			
+			newlist = LinkedList()
+			origin = tmphead
+			while (tmphead and tmphead.next):
+				count = 1
+				tmp_head_newlst = tmphead
+				
+				while(count % k and tmp_head_newlst.next != None):
+					tmp_head_newlst = tmp_head_newlst.next
+					count = count+1
+				
+				tmphead = tmp_head_newlst.next
+				tmp_head_newlst.next = None
+				newlist.append(self.reverse(origin))
+				
+				origin = tmphead
+			return  newlist
 
 if __name__ == "__main__":
 	llist = LinkedList()
@@ -187,3 +221,5 @@ if __name__ == "__main__":
 	newlist = LinkedList()
 	newlist.head = llist.mergeSort(llist.head)
 	newlist.traverse()
+	mylist = newlist.blockReverse(2)
+	mylist.traverse()
