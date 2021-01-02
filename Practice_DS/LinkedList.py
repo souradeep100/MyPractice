@@ -209,8 +209,26 @@ class LinkedList:
 				newlist.append(self.reverse(origin))
 				
 				origin = tmphead
+			del self.head
 			return  newlist
 
+	def detectLoop(self):
+		if (self.head == None):
+			return False
+		slow_ptr = self.head
+		first_ptr = self.head
+		prev = None
+		while (first_ptr.next != None and first_ptr.next.next != None):
+			
+			slow_ptr = slow_ptr.next
+			first_ptr = first_ptr.next.next
+			if (slow_ptr == first_ptr):
+				print (f"Loop!!! at {slow_ptr.data}")
+				slow_ptr.next = None
+				print ("Fixed")
+				self.traverse()
+				return True
+		return False
 if __name__ == "__main__":
 	llist = LinkedList()
 	llist.insert(2)
@@ -223,3 +241,13 @@ if __name__ == "__main__":
 	newlist.traverse()
 	mylist = newlist.blockReverse(2)
 	mylist.traverse()
+	looplist = LinkedList()
+	first = Node(1)
+	second = Node(2)
+	third = Node(3)
+	third.next = second
+	looplist.head = first
+	first.next = second
+	second.next = third
+	res = looplist.detectLoop()
+	print(f"res is {res}")
