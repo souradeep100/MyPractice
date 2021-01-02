@@ -310,6 +310,26 @@ class LinkedList:
 			start.next = tmp3
 		return result
 
+	def rotateList(self, k):
+		if (self.head == None):
+			return
+		tmp = self.head
+		tail = None
+		while (tmp.next):
+			tmp = tmp.next
+		tail = tmp
+		print (f"the tail is {tail.data}")
+		count = 0
+		while (count < k):
+			tmp = self.head
+			
+			self.head = self.head.next
+			tail.next = tmp
+			tail = tail.next
+			tail.next = None
+			count = count+1
+			
+
 if __name__ == "__main__":
 	llist = LinkedList()
 	llist.insert(2)
@@ -336,4 +356,6 @@ if __name__ == "__main__":
 	mylist.traverse()
 	looplist.traverse()
 	sumlist = llist.sumList(mylist.head,looplist.head)
+	sumlist.traverse()
+	sumlist.rotateList(6)
 	sumlist.traverse()
