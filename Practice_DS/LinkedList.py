@@ -217,7 +217,7 @@ class LinkedList:
 			return False
 		slow_ptr = self.head
 		first_ptr = self.head
-		prev = None
+		
 		while (first_ptr.next != None and first_ptr.next.next != None):
 			
 			slow_ptr = slow_ptr.next
@@ -229,11 +229,92 @@ class LinkedList:
 				self.traverse()
 				return True
 		return False
+	def sumList(self, head1, head2):
+		result = LinkedList()
+		if (head1 == None):
+			result.head = head2
+			return result
+		if (head2 == None):
+			result.head = head1
+			return result
+		tmp1 = head1
+		tmp2 = head2
+		carry = 0
+		sum = 0
+		start = None
+		while (tmp1 != None and tmp2 != None):
+			
+			sum = (tmp1.data + tmp2.data) + carry
+			
+			print (f"tmp1.data {tmp1.data} + tmp2.data {tmp2.data} is sum {sum}")
+			if sum > 10 :
+				carry = int(sum / 10)
+				sum = sum % 10
+			tmp3 = Node(sum)
+			if (result.head == None):
+				
+				result.head = tmp3
+				start = result.head
+				
+			else:
+			
+				start.next = tmp3
+				start = start.next
+				
+			tmp1 = tmp1.next
+			tmp2 = tmp2.next
+			tmp = result.head
+			while (tmp):
+				print(f"result is {tmp.data}")
+				tmp = tmp.next
+		if (tmp1 != None):
+			'''
+			while (start.next):
+				start = start.next
+				print (f"start.data 1 {start.data}")
+			'''
+			while (tmp1):
+				sum = carry + tmp1.data
+				carry = 0
+				if sum > 10 :
+					carry = sum / 10
+					sum = sum % 10
+				tmp3 = Node(sum)
+				start.next = tmp3
+				tmp1 = tmp1.next
+				start = start.next
+		
+		if (tmp2 != None):
+			
+			print (f"start.data is {start.data}")
+			'''
+			while (start.next):
+				
+				print (f"start.data is {start.data}")
+				start = start.next
+			'''
+			while (tmp2):
+				sum = carry + tmp2.data
+				carry = 0
+				if sum > 10 :
+					carry = sum / 10
+					sum = sum % 10
+				tmp3 = Node(sum)
+				start.next = tmp3
+				tmp2 = tmp2.next
+				start = start.next
+		if (carry):
+			tmp3 = Node(carry)
+			while (start.next):
+				start = start.next
+			start.next = tmp3
+		return result
+
 if __name__ == "__main__":
 	llist = LinkedList()
 	llist.insert(2)
 	llist.insert(1)
-	llist.insert(4)
+	llist.insert(9)
 	llist.insert(5)
 	llist.traverse()
 	newlist = LinkedList()
@@ -251,3 +332,8 @@ if __name__ == "__main__":
 	second.next = third
 	res = looplist.detectLoop()
 	print(f"res is {res}")
+	
+	mylist.traverse()
+	looplist.traverse()
+	sumlist = llist.sumList(mylist.head,looplist.head)
+	sumlist.traverse()
