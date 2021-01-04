@@ -103,3 +103,79 @@ if __name__ == "__main__":
     postorder(root)
     levelorder(root)
 
+'''
+
+1)Maximum width of a binary tree
+2)Print nodes at k distance from root
+3)Print Ancestors of a given node in Binary Tree
+4)Check if a binary tree is subtree of another binary tree
+5)Connect nodes at same level
+from geeksforgeek
+
+class Codec:
+
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        if root == None:
+            return None
+        queue = [root]
+        output = []
+        while queue:
+            current = queue.pop(0)
+            print (current)
+            if current == None :
+                output.append("null")
+                continue
+            output.append(str(current.val))
+            
+            queue.append(current.left)
+            
+            queue.append(current.right)
+        print(output)
+        return ",".join(output)
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        if data:
+            data = data.split(',')
+        else:
+            return None
+        count = 0
+        val = data[count]
+        queue = []
+        if val != 'null':
+            root = TreeNode(int(val))
+            queue.append(root)
+        else:
+            return None
+        while queue:
+            node = queue.pop(0)
+            count += 1
+            if (count < len(data)):
+                val = data[count]
+            else:
+                break
+            if val != 'null':
+                node.left = TreeNode(int(val))
+                queue.append(node.left)
+            else:
+                node.left = None
+            count += 1
+            if (count < len(data)):
+                val = data[count]
+            else:
+                break
+            if val != 'null':
+                node.right = TreeNode(int(val))
+                queue.append(node.right)
+            else:
+                node.right = None
+        return root
+'''
